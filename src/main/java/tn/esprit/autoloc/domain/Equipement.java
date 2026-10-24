@@ -1,5 +1,7 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "equipement")
 @Getter
 @Setter
@@ -25,5 +28,6 @@ public class Equipement {
     private String libelle;
 
     @ManyToMany(mappedBy = "equipements")
+    @JsonIgnore
     private Set<Vehicule> vehicules = new HashSet<>();
 }

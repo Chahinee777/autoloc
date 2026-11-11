@@ -10,4 +10,6 @@ public interface IAgenceService {
     void delete(Long id);
     Agence findById(Long id);
     List<Agence> findAll();
+
+    Agence ajouterAgenceEtAffecterVehicules(Agence agence);
 }

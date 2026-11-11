@@ -21,6 +21,12 @@ public class AgenceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(agenceService.create(agence));
     }
 
+    @PostMapping("/avec-vehicules")
+    public ResponseEntity<Agence> ajouterAgenceEtAffecterVehicules(@RequestBody Agence agence) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(agenceService.ajouterAgenceEtAffecterVehicules(agence));
+    }
+
     @GetMapping
     public List<Agence> findAll() {
         return agenceService.findAll();

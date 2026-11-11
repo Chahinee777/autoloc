@@ -41,4 +41,14 @@ public class VehiculeController {
         vehiculeService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{idVehicule}/equipements/{idEquipement}/affecter")
+    public Vehicule affecterEquipement(@PathVariable Long idVehicule, @PathVariable Long idEquipement) {
+        return vehiculeService.affecterEquipement(idVehicule, idEquipement);
+    }
+
+    @PutMapping("/{idVehicule}/equipements/{idEquipement}/desaffecter")
+    public Vehicule desaffecterEquipement(@PathVariable Long idVehicule, @PathVariable Long idEquipement) {
+        return vehiculeService.desaffecterEquipement(idVehicule, idEquipement);
+    }
 }

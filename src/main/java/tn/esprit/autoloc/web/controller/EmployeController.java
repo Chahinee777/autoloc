@@ -41,4 +41,14 @@ public class EmployeController {
         employeService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{idEmploye}/desaffecter")
+    public Employe desaffecter(@PathVariable Long idEmploye) {
+        return employeService.desaffecterEmploye(idEmploye);
+    }
+
+    @PutMapping("/{idEmploye}/affecter/{idAgence}")
+    public Employe affecter(@PathVariable Long idEmploye, @PathVariable Long idAgence) {
+        return employeService.affecterEmploye(idEmploye, idAgence);
+    }
 }

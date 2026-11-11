@@ -2,7 +2,10 @@ package tn.esprit.autoloc.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.domain.Equipement;
 import tn.esprit.autoloc.domain.Vehicule;
+import tn.esprit.autoloc.repository.EquipementRepository;
 import tn.esprit.autoloc.repository.VehiculeRepository;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.NoSuchElementException;
 public class VehiculeServiceImpl implements IVehiculeService {
 
     private final VehiculeRepository vehiculeRepository;
+    private final EquipementRepository equipementRepository;
 
     @Override
     public Vehicule create(Vehicule vehicule) {
@@ -46,5 +50,28 @@ public class VehiculeServiceImpl implements IVehiculeService {
     @Override
     public List<Vehicule> findAll() {
         return vehiculeRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public Vehicule affecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = findById(idVehicule);
+        Equipement equipement = findEquipement(idEquipement);
+        vehicule.getEquipements().add(equipement);   // Vehicule owns the @ManyToMany
+        return vehiculeRepository.save(vehicule);
+    }
+
+    @Override
+    @Transactional
+    public Vehicule desaffecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = findById(idVehicule);
+        Equipement equipement = findEquipement(idEquipement);
+        vehicule.getEquipements().remove(equipement);
+        return vehiculeRepository.save(vehicule);
+    }
+
+    private Equipement findEquipement(Long idEquipement) {
+        return equipementRepository.findById(idEquipement)
+                .orElseThrow(() -> new NoSuchElementException("Equipement introuvable avec id: " + idEquipement));
     }
 }

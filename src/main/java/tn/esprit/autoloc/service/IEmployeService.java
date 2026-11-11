@@ -10,4 +10,7 @@ public interface IEmployeService {
     void delete(Long id);
     Employe findById(Long id);
     List<Employe> findAll();
+
+    Employe desaffecterEmploye(Long idEmploye);
+    Employe affecterEmploye(Long idEmploye, Long idAgence);
 }
